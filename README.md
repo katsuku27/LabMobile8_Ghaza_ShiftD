@@ -93,7 +93,53 @@ error: (err: any) => {
     console.log('gagal tambah mahasiswa');
 },
 ```
+## Read
+![createsucces](createsucces.png)
 
+```
+  getMahasiswa() {
+    this.api.tampil('tampil.php').subscribe({
+      next: (res: any) => {
+        console.log('sukses', res);
+        this.dataMahasiswa = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+  }
+```
 
+### Penjelasan Read
+Fungsi getMahasiswa() bertujuan untuk mengambil data mahasiswa dari server menggunakan endpoint API 'tampil.php'.
+```
+this.api.tampil('tampil.php').subscribe({
+      next: (res: any) => {
+        console.log('sukses', res);
+        this.dataMahasiswa = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+```
 
+Setelah API mengirimkan respons, subscribe() digunakan untuk menangani hasil yang diterima. Fungsi ini menangani dua kemungkinan: respons sukses (next) dan kesalahan (error).
 
+Jika Respons Sukses:
+- Blok next dijalankan jika server memberikan respons yang berhasil. Dalam hal ini, respons dari server (res) berisi data mahasiswa yang diinginkan.
+- Data tersebut kemudian disimpan dalam variabel this.dataMahasiswa.
+```
+next: (res: any) => {
+    console.log('sukses', res);
+    this.dataMahasiswa = res;
+},
+```
+
+Jika Respons Gagal:
+Blok error dijalankan jika terjadi kesalahan dalam mengambil data, seperti kegagalan koneksi atau masalah pada API.
+```
+error: (err: any) => {
+    console.log(err);
+},
+```
